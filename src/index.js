@@ -2,6 +2,8 @@ var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d")
 var width
 var height
+import _ from 'lodash';
+import Vue from 'vue';
 
 var resize = function() {
   width = window.innerWidth * 2
@@ -43,3 +45,11 @@ function loop(timestamp) {
 }
 var lastRender = 0
 window.requestAnimationFrame(loop)
+document.body.appendChild(component())
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello vue'
+    }
+})

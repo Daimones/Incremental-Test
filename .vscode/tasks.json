@@ -11,6 +11,22 @@
 			"problemMatcher": [],
 			"label": "npm: build",
 			"detail": "npm run dev"
+		},
+		{
+			"type": "shell",
+			"group": "test",
+			"problemMatcher": [],
+			"label": "login cmd",
+			"detail": "npm login",
+			"command": "npm login"
+		},
+		{
+			"type": "shell",
+			"group": "test",
+			"problemMatcher": [],
+			"label": "Install cmd",
+			"detail": "npm run dev",
+			"command": "npm install --save-dev"
 		}
 	]
 }

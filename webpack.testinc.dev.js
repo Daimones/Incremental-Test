@@ -14,4 +14,9 @@ module.exports = {
         filename: 'inctest.js',
         path: path.resolve(__dirname,'dist'),
     },
+    resolve: {
+            alias: {
+                vue: 'vue/dist/vue.js'
+            },
+        },
 };
