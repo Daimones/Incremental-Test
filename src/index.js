@@ -1,11 +1,45 @@
-import _ from 'lodash';
+var canvas = document.getElementById("canvas")
+var ctx = canvas.getContext("2d")
+var width
+var height
 
-function component() {
+var resize = function() {
+  width = window.innerWidth * 2
+  height = window.innerHeight * 2
+  canvas.width = width
+  canvas.height = height
+}
+window.onresize = resize
+resize()
 
-    const element = document.createElement('div');
+ctx.fillStyle = 'red'
 
-    element.innerHTML = _.join(['Hello','Testing this'],' ')
-    return element;
+var state = {
+  x: (width / 2),
+  y: (height / 2),
 }
 
-document.body.appendChild(component())
+function update(progress) {
+  state.x += progress
+  if (state.x > width) {
+    state.x -= width;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, width, height)
+
+  ctx.fillRect(state.x - 10, state.y - 10, 20, 20)
+}
+
+function loop(timestamp) {
+  var progress = (timestamp - lastRender)
+
+  update(progress)
+  draw()
+  
+  lastRender = timestamp
+  window.requestAnimationFrame(loop)
+}
+var lastRender = 0
+window.requestAnimationFrame(loop)

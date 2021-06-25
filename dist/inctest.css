@@ -1,0 +1,38 @@
+#resizeable {
+    --resizeable-width: 300px;
+    height: 100vh;
+    width: var(--resizeable-width);
+    background-color: grey;
+  }
+  
+  #handle {
+    float: right;
+    height: 100%;
+    width: 1px;
+    background-color: blue;
+    z-index: 1;
+  }
+  
+  #handle::after {
+    content: "";
+    width: 9px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -4px;
+    background-color: transparent;
+    cursor: ew-resize;
+    z-index: 2;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  canvas {
+    background: #000;
+    height: 100%;
+    width: 100%;
+    display: block
+  }
