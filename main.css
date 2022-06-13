@@ -1,0 +1,29 @@
+
+
+.tabBackground {
+    background-color:rgb(85, 85, 85);
+    border: lightgrey 1px solid;
+}
+.mainFlex {
+    height: 600px;
+    max-width: 600px;
+}
+.tabButtonFlex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 50px;
+}
+.tabButton {
+    flex: 1;
+    background-color:gray;
+    border: lightgrey 1px solid;
+    color: lightgray;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+}
+
+body {
+    background-color:rgb(77, 77, 77);
+}
