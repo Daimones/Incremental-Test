@@ -3,15 +3,18 @@ const TabEnum ={
     NumberTab: "NumberTab"
 }
 
+const UpgradeUnlock = 10
+
 class GameState {
     version = "0.0.1"
-    number = 0
-    numberIncrement = 1
+    rocks = 0
+    rockClickIncrement = 1
     tab = TabEnum.NumberTab
+    upgradesVisible = false
 }
 
 
-var gameState 
+export var gameState 
 
 export function Load(){
     var defaultState = new GameState()
@@ -32,14 +35,13 @@ export function Load(){
     console.log(gameState.number)
 }
 
-export function GetNumber(){
-    return gameState.number
+export function GetRocks(){
+    return gameState.rocks
 }
 
 
-export function IncrementNumber(){
-    console.log("Increment")
-    gameState.number = gameState.number + gameState.numberIncrement
+export function AddManualRocks(){
+    gameState.rocks = gameState.rocks + gameState.rockClickIncrement
 }
 
 export function Save(){
@@ -49,4 +51,10 @@ export function Save(){
 
 export function GetTab(){
     return gameState.tab
+}
+
+export function Update(){
+    if(gameState.rocks > UpgradeUnlock) {
+        gameState.upgradesVisible = true
+    }
 }

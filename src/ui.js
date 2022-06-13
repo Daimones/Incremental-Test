@@ -9,26 +9,63 @@ const tabBackgroundClass = "tabBackground"
 
 // DIVS
 var mainDiv
+var statsDiv
 var tabDiv
 var tabButtonDiv
 
 var test =[]
+//Stats
+var rockStats
 
 //Tabs
 var numberTab
 var upgradeTab
 
-var numberTabButton
+var rockTabButton
 var upgradeTabButton
 
 //NumberPage
-var mainButton
+var getRockButton
 
 //UpgradePage
 var upgrade_ClickButton
 
+function setVisiblity(el,state){
+    if (state){
+        el.style.display = "initial"
+    }
+    else{
+        el.style.display = "none"
+    }
+}
+
+function changeTab(evt){
+    var selected = evt.currentTarget
+    var tabs = document.getElementsByClassName(tabButtonClass)
+    for (var i = 0; i < tabs.length; i++)
+    {
+        
+        if(selected.ariaLabel == tabs[i].ariaLabel)
+        {            
+            tabs[i].className = "tabButton selected"
+            console.log(tabs[i].className)
+            game.gameState.currentTab = selected.ariaLabel
+        }
+        else{
+            tabs[i].className = "tabButton"
+        }
+    }
 
 
+}
+
+function addTab(text){
+    var tabButton = ui.makeElement("div",tabButtonDiv)
+    tabButton.className = tabButtonClass
+    tabButton.ariaLabel = text
+    tabButton.innerHTML = text
+    return tabButton
+}
 
 export function init() {
     
@@ -36,44 +73,52 @@ export function init() {
     mainDiv.className = "mainFlex"
     if (showdebugborders) mainDiv.style.border = '2px solid green'
 
+    statsDiv = ui.makeElement("div",mainDiv)
+    statsDiv.className = "statsFlex"
+
+    rockStats = ui.makeElement("div",statsDiv)
+    rockStats.className = "statBox"
+
     tabButtonDiv = ui.makeElement("div",mainDiv)
     if (showdebugborders) tabButtonDiv.style.border = '2px solid yellow'
     tabButtonDiv.className = "tabButtonFlex"
 
-    numberTabButton = ui.makeElement("div",tabButtonDiv)
-    numberTabButton.className = tabButtonClass
-    numberTabButton.innerHTML = "Main"
+    rockTabButton = addTab("Rocks")
 
-    for (var i=0; i<10; i++){
+    upgradeTabButton = addTab("Upgrades")
+    //setVisiblity(upgradeTabButton,false)
+
+    ui.AddEventsToClass(tabButtonClass,"mousedown",changeTab)
+
+    for (var i=0; i<3; i++){
         var element = ui.makeElement("div",tabButtonDiv)
         test[i] = element
         test[i].className = tabButtonClass
-        test[i].innerHTML = "Test"
-        if (i>3){
-            element.style.display = "none"
-        }
+        test[i].innerHTML = "Stuff-" + i
+        element.style.display = "none"
+        
     }
 
-    tabDiv = ui.makeDiv(0,50,600,350,mainDiv)
+    tabDiv = ui.makeElement("div",mainDiv)
     if (showdebugborders) tabDiv.style.border = '2px solid yellow'
-    tabDiv.className = tabBackgroundClass
+    tabDiv.className = "gameArea"
     
     numberTab = ui.makeDiv(0,200,600,200,tabDiv)
     if (showdebugborders) numberTab.style.border = '2px solid green'
     
-    mainButton = ui.makeDiv(200,0,100,50,numberTab)
-    if (showdebugborders) mainButton.style.border = '2px solid red'
+    getRockButton = ui.makeDiv(200,0,100,50,numberTab)
+    if (showdebugborders) getRockButton.style.border = '2px solid red'
     
-    mainButton.addEventListener('mouseup', game.IncrementNumber)
-    mainButton.className = tabButtonClass
+    getRockButton.addEventListener('mouseup', game.AddManualRocks)
+    getRockButton.className = tabButtonClass
+    getRockButton.innerHTML = "Get Rocks"
 }
 
 export function UpdateUI() {
     var currentTab = game.GetTab()
-    for(var i =0;i<test.length;i++){
-        if (game.GetNumber()> i){
-            test[i].style.display = "initial"
-        }
+    if (game.gameState.upgradesVisible){
+        setVisiblity(upgradeTabButton,true)
     }
-    mainButton.innerHTML = "<br >" + game.GetNumber() + "</ br>"
+    
+    rockStats.innerHTML = "Rocks:<br >" + game.GetRocks() + "</ br>"
 }

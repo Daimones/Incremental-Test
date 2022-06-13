@@ -7,6 +7,7 @@ function initialize() {
 
 }
 function Update() {
+    game.Update()
     ui.UpdateUI()
 }
 function Save() {

@@ -60,3 +60,13 @@ export function makeDiv(x, y, w, h, opt_parent) {
     el.addEventListener(event, fun, false);
     return 
   };
+
+  export function AddEventsToClass(className,event,func){
+    var els = document.getElementsByClassName(className)
+    for(var i = 0; i < els.length; i++){
+      var el = els[i]
+      var label = el.ariaLabel
+      el.addEventListener(event,func,false)
+    }
+    return
+  }
