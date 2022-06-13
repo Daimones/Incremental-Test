@@ -1,9 +1,15 @@
 
+const TabEnum ={
+    NumberTab: "NumberTab"
+}
+
 class GameState {
     version = "0.0.1"
     number = 0
     numberIncrement = 1
+    tab = TabEnum.NumberTab
 }
+
 
 var gameState 
 
@@ -11,7 +17,7 @@ export function Load(){
     var defaultState = new GameState()
     if (localStorage.getItem('Save')){
         try{
-        gameState = JSON.parse(localStorage.getItem('Save'))
+        state = JSON.parse(localStorage.getItem('Save'))
         if (gameState.version != defaultState.version){
             console.log("Version mismatch - " + gameState.version + " - " + defaultState.version)
         }
@@ -39,4 +45,8 @@ export function IncrementNumber(){
 export function Save(){
     var stateString = JSON.stringify(gameState)
     localStorage.setItem('Save',stateString)
+}
+
+export function GetTab(){
+    return gameState.tab
 }
