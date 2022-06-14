@@ -1,24 +1,34 @@
-
+* {
+    box-sizing: border-box;
+    font-size: 100%;
+}
 
 .mainFlex {
-    height: 600px;
-    max-width: 1200px;
+    padding: 10px
 }
+@media (max-width: 600px) {
+    .mainFlex {
+      flex: 100%;
+      max-width: 100%;
+    }
+  }
 .statsFlex {
+    width: unset;
     max-height: 100px;
     display: flex;
-
 }
 .statBox {
+    width: unset;
     border: lightgrey 1px solid;
     user-select: "none";
     color: lightgray;
     text-align: center;
-    min-width: 100px;
-    min-height: 50px;
+    /* min-width: 100px;
+    min-height: 50px; */
 }
 
 .tabBackground {
+    width: unset;
     background-color:rgb(85, 85, 85);
     border: lightgrey 1px solid;
 }
@@ -37,7 +47,7 @@
     text-align: center;
     vertical-align: middle;
     user-select: none;
-    max-width: 200px;
+    /* max-width: 200px; */
 }
 .tabButton.selected {
     background-color:rgb(85, 85, 85);
@@ -45,13 +55,26 @@
 
 
 .gameArea {
+    
     background-color:rgb(85, 85, 85);
     border: lightgrey 1px solid;
-    max-height: 100%;
+    /* max-height: 100%;
     min-height: 300px;
-    max-width: 1200px;
+    max-width: 1200px; */
+}
+.gameButton {
+
+    background-color:gray;
+    border: lightgrey 1px solid;
+    color: lightgray;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    /* max-width: 200px; */
 }
 
 body {
+    margin: 0;
+    font-family: Arial;
     background-color:rgb(77, 77, 77);
 }
