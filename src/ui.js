@@ -1,6 +1,7 @@
 import * as ui from './utils.js'
 import * as game from './game.js'
 
+
 var showdebugborders = false
 
 // CONSTANTS
@@ -64,6 +65,7 @@ function addTab(text){
     tabButton.className = tabButtonClass
     tabButton.ariaLabel = text
     tabButton.innerHTML = text
+    setVisiblity(tabButton,false)
     return tabButton
 }
 
@@ -72,6 +74,7 @@ export function init() {
     mainDiv = ui.makeElement("div")
     mainDiv.className = "mainFlex"
     if (showdebugborders) mainDiv.style.border = '2px solid green'
+    mainDiv.innerHTML = "Test"
 
     statsDiv = ui.makeElement("div",mainDiv)
     statsDiv.className = "statsFlex"
@@ -84,13 +87,14 @@ export function init() {
     tabButtonDiv.className = "tabButtonFlex"
 
     rockTabButton = addTab("Rocks")
+    setVisiblity(rockTabButton,true)
 
     upgradeTabButton = addTab("Upgrades")
-    //setVisiblity(upgradeTabButton,false)
+
 
     ui.AddEventsToClass(tabButtonClass,"mousedown",changeTab)
 
-    for (var i=0; i<3; i++){
+    for (var i=0; i<10; i++){
         var element = ui.makeElement("div",tabButtonDiv)
         test[i] = element
         test[i].className = tabButtonClass
@@ -103,14 +107,15 @@ export function init() {
     if (showdebugborders) tabDiv.style.border = '2px solid yellow'
     tabDiv.className = "gameArea"
     
-    numberTab = ui.makeDiv(0,200,600,200,tabDiv)
+    numberTab = ui.makeElement("div",tabDiv)
     if (showdebugborders) numberTab.style.border = '2px solid green'
+    numberTab.className = "gameArea"
     
-    getRockButton = ui.makeDiv(200,0,100,50,numberTab)
+    getRockButton = numberTab = ui.makeElement("div",numberTab)
     if (showdebugborders) getRockButton.style.border = '2px solid red'
     
     getRockButton.addEventListener('mouseup', game.AddManualRocks)
-    getRockButton.className = tabButtonClass
+    getRockButton.className = "gameButton"
     getRockButton.innerHTML = "Get Rocks"
 }
 
@@ -118,6 +123,14 @@ export function UpdateUI() {
     var currentTab = game.GetTab()
     if (game.gameState.upgradesVisible){
         setVisiblity(upgradeTabButton,true)
+    }
+    for (let index = 0; index < test.length; index++) {
+        var element = test[index];
+        if (Math.floor(game.GetRocks() / 10) - 1 > index) {
+            setVisiblity(element,true)
+        }
+
+        
     }
     
     rockStats.innerHTML = "Rocks:<br >" + game.GetRocks() + "</ br>"
