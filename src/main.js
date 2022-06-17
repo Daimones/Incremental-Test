@@ -1,5 +1,6 @@
 import * as ui from './ui.js'
 import * as game from './game.js'
+import "./main.css"
 
 function initialize() {
     game.Load()

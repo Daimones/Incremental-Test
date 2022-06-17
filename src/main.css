@@ -1,6 +1,6 @@
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 .mainFlex {
     padding: 10px
 }
@@ -75,4 +75,7 @@ body {
     margin: 0;
     font-family: Arial;
     background-color:rgb(77, 77, 77);
+}
+.footer {
+    position: fixed;
 }

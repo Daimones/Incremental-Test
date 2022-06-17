@@ -1,38 +1,61 @@
+import Decimal from "break_eternity.js"
+
+var gameName = "D-inc"
 
 const TabEnum ={
     NumberTab: "NumberTab"
 }
 
-const UpgradeUnlock = 10
+const defaultState = {
+    version: "0.0.4",
 
-class GameState {
-    version = "0.0.1"
-    rocks = 0
-    rockClickIncrement = 1
-    tab = TabEnum.NumberTab
-    upgradesVisible = false
+    //Status
+    tab: TabEnum.NumberTab,
+    upgradesVisible: false,
+    
+    //Rocks
+    rocks: new Decimal(0),
+    rockClickIncrement: 1
+
 }
 
+
+
+const UpgradeUnlock = 10
 
 export var gameState 
 
 export function Load(){
-    var defaultState = new GameState()
-    if (localStorage.getItem('Save')){
+    gameState = Object.create(defaultState)
+    let properties = Object.getOwnPropertyNames(defaultState)
+    let encodedSave = localStorage.getItem(gameName)
+    console.log(encodedSave)
+    if (encodedSave){
         try{
-        state = JSON.parse(localStorage.getItem('Save'))
-        if (gameState.version != defaultState.version){
-            console.log("Version mismatch - " + gameState.version + " - " + defaultState.version)
+            let state = JSON.parse(atob(encodedSave))
+            if (state.version != defaultState.version){
+                console.log("Version mismatch - " + state.version + " - " + defaultState.version)
+            }
+            for(var i = 0; i < properties.length;i++){
+                var prop = properties[i]
+                if(prop != "version"){                
+                    if (state[prop]){
+                        gameState[prop] = state[prop]
+                    }
+
+                }
+
+            }
         }
-        }
-        catch{
-            gameState = defaultState
+        catch(e){
+            console.error("Exception Thrown",e.stack)
+            console.log("exception")
         }
     }
     else{
         gameState = defaultState
     }
-    console.log(gameState.number)
+    console.log(gameState)
 }
 
 export function GetRocks(){
@@ -41,12 +64,17 @@ export function GetRocks(){
 
 
 export function AddManualRocks(){
-    gameState.rocks = gameState.rocks + gameState.rockClickIncrement
+
+    // let num = new Decimal()
+    // num.add()
+    gameState.rocks = gameState.rocks.add(gameState.rockClickIncrement) 
 }
 
 export function Save(){
-    var stateString = JSON.stringify(gameState)
-    localStorage.setItem('Save',stateString)
+    let stateString = btoa(JSON.stringify(gameState))
+    localStorage.setItem(gameName,stateString)
+    //var notification = new Notification("Saving")
+    console.log("Saved")
 }
 
 export function GetTab(){

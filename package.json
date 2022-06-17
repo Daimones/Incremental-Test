@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "Just my first test",
   "private": true,
+  "watch": {
+    "build": "src/*.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx webpack --config webpack.testinc.dev.js",
-    "build": "npm run dev"
+    "build": "npm run dev",
+    "watch": "npm-watch"
   },
   "repository": {
     "type": "git",
@@ -22,12 +26,15 @@
   },
   "homepage": "https://github.com/Daimones/Incremental-Test#readme",
   "dependencies": {
-    "lodash": "^4.17.21"
+    "break_eternity.js": "^1.2.5"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.1.2",
-    "less": "^4.1.1",
-    "vue": "^2.6.14",
+    "css-loader": "^6.7.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "npm-watch": "^0.11.0",
+    "style-loader": "^3.3.1",
     "webpack": "^5.40.0",
     "webpack-cli": "^4.7.2"
   }
